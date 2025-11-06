@@ -54,7 +54,7 @@
       }
     },
     "ai-counsel": {
-      "command": "python",
+      "command": "${REPO_ROOT}/mcp-servers/ai-counsel/.venv/bin/python",
       "args": [
         "${REPO_ROOT}/mcp-servers/ai-counsel/server.py"
       ],
