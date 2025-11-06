@@ -1,0 +1,16 @@
+# ai-counsel/requirements-core.txt
+# Core dependencies without heavy ML libraries
+mcp>=1.0.0
+pydantic>=2.5.0
+pyyaml>=6.0.1
+
+# HTTP client and retry logic for HTTP adapters
+httpx>=0.27.0
+tenacity>=8.2.0
+
+# Test dependencies
+vcrpy>=4.4.0  # HTTP response recording for tests
+
+# TF-IDF similarity backend (good performance, moderate accuracy)
+# Lighter alternative to sentence-transformers
+scikit-learn>=1.3.0

@@ -1,0 +1,264 @@
+# ai-counsel/config.yaml
+version: "1.0"
+
+cli_tools:
+  claude:
+    command: "claude"
+    args:
+      [
+        "-p",
+        "--model",
+        "{model}",
+        "--settings",
+        '{{"disableAllHooks": true}}',
+        "{prompt}",
+      ]
+    timeout: 300
+    # Valid models: "sonnet", "opus", "haiku" or full names like "claude-sonnet-4-5-20250929"
+    # Note: -p flag is auto-removed during deliberations for full engagement
+
+  codex:
+    command: "codex"
+    args: ["exec", "--skip-git-repo-check", "--sandbox", "workspace-write", "--model", "{model}", "{prompt}"]
+    timeout: 180
+    # Valid models: "gpt-5-codex", "o3", or other OpenAI model identifiers
+    #
+    # Security Configuration:
+    # - --skip-git-repo-check: Allows running outside git repositories
+    # - --sandbox workspace-write: Allows reads anywhere, writes only in workspace (/tmp included)
+    # - --model {model}: Specifies which model to use for the deliberation
+    # Note: This configuration enables evidence-based deliberation tools while maintaining security
+
+  droid:
+    command: "droid"
+    args: ["exec", "-m", "{model}", "{prompt}"]
+    timeout: 180
+    # ONLY VALID MODELS: "claude-sonnet-4-5-20250929", "gpt-5-codex", "Droid Core (GLM-4.6)"
+    # Note: Requires FULL model IDs, not short aliases
+    #
+    # Adaptive Permission Strategy (Graceful Degradation):
+    # The Droid adapter automatically handles permission levels without manual configuration.
+    # If a permission error occurs (e.g., "insufficient permission to proceed"), the adapter
+    # will automatically retry with higher permission levels:
+    #   1. First attempt: --auto low (basic file reading, safe for text generation)
+    #   2. If fails: --auto medium (allows network/git operations for context)
+    #   3. If fails: --auto high (allows production operations if needed)
+    # This ensures deliberations work seamlessly regardless of Droid's permission requirements.
+
+  gemini:
+    command: "gemini"
+    args: ["--include-directories", "{working_directory}", "-m", "{model}", "-p", "{prompt}"]
+    timeout: 180
+    # Valid models: "gemini-2.5-pro" (default) or other Gemini identifiers
+    #
+    # Working Directory Configuration:
+    # - --include-directories {working_directory}: Dynamically allows access to the client's working directory
+    # - The {working_directory} placeholder is replaced at runtime with the actual directory path
+    # - This enables evidence-based deliberation tools to read files from the correct repository
+    # Note: Without this flag, Gemini blocks access outside workspace with error:
+    #       "File path must be within one of the workspace directories"
+    # Known Issue: Setting includeDirectories in .gemini/settings.json is broken (GitHub issue #5512)
+    #              Must use command-line flag until fixed
+
+  llamacpp:
+    command: "llama-cli"
+    args: ["-m", "{model}", "-p", "{prompt}", "-n", "2048", "-c", "4096"]
+    timeout: 180
+    # llama.cpp is a fast, lightweight LLM inference engine for running models locally
+    #
+    # AUTO-DISCOVERY:
+    # You can now use model names instead of full paths!
+    # Examples:
+    #   - "llama-3-8b" (finds Llama-3-8B-*.gguf) ✅ Recommended for deliberations
+    #   - "mistral-7b" (finds Mistral-7B-*.gguf) ✅ Recommended for deliberations
+    #   - "qwen-2.5-7b" (finds Qwen-2.5-7B-*.gguf) ✅ Recommended for deliberations
+    #   - "llama-3.2-1b" (finds Llama-3.2-1B-*.gguf) ⚠️ Too small, use for testing only
+    #   - "/full/path/to/model.gguf" (still works)
+    #
+    # Model Size Recommendations:
+    #   - Minimum 7B-8B parameters for reliable structured output
+    #   - Smaller models (<3B) struggle with vote formatting
+    #
+    # Search paths (in order):
+    #   1. $LLAMA_CPP_MODEL_PATH (colon-separated paths)
+    #   2. ~/.cache/llama.cpp/models
+    #   3. ~/models
+    #   4. ~/llama.cpp/models
+    #   5. /usr/local/share/llama.cpp/models
+    #   6. ~/.ollama/models
+    #   7. ~/.lmstudio/models
+    #
+    # Common args:
+    #   -m: model path (REQUIRED - use {model} placeholder)
+    #   -p: prompt text (REQUIRED - use {prompt} placeholder)
+    #   -n: number of tokens to predict (default: 128, recommended: 2048+ for deliberations)
+    #   -c: context size (default: 512, recommended: 4096+ for deliberations)
+    #   -t: threads (default: auto, e.g., "-t", "8")
+    #   --temp: temperature (e.g., "--temp", "0.7")
+    #
+    # Download models from https://huggingface.co/models?library=gguf
+    # Build llama.cpp: https://github.com/ggerganov/llama.cpp
+
+# HTTP Adapters Section (new format)
+adapters:
+  ollama:
+    type: http
+    base_url: "http://localhost:11434"
+    timeout: 120
+    max_retries: 3
+    # Valid models: llama2, mistral, codellama, qwen, etc.
+    # Run 'ollama list' to see available models
+    # Ollama is a local LLM runtime - no API key needed
+  #
+  lmstudio:
+    type: http
+    base_url: "http://localhost:1234"
+    timeout: 120
+    max_retries: 3
+    # Valid models: any model loaded in LM Studio
+    # LM Studio provides OpenAI-compatible API
+    # No API key needed for local instance
+
+  openrouter:
+    type: http
+    base_url: "https://openrouter.ai/api/v1"
+    api_key: "${OPENROUTER_API_KEY}" # Environment variable from .env file
+    timeout: 90
+    max_retries: 3
+    # Valid models: anthropic/claude-3.5-sonnet, openai/gpt-4, meta-llama/llama-3.1-8b-instruct, etc.
+    # See https://openrouter.ai/docs for full model list
+    # Requires API key from https://openrouter.ai/keys
+
+defaults:
+  mode: "quick"
+  rounds: 2
+  max_rounds: 5
+  timeout_per_round: 120
+
+model_registry:
+  claude:
+    - id: "claude-sonnet-4-5-20250929"
+      label: "Claude Sonnet 4.5"
+      tier: "balanced"
+      default: true
+    - id: "claude-haiku-4-5-20251001"
+      label: "Claude Haiku 4.5"
+      tier: "speed"
+    - id: "claude-opus-4-1-20250805"
+      label: "Claude Opus 4.1"
+      tier: "premium"
+  codex:
+    - id: "gpt-5-codex"
+      label: "GPT-5 Codex"
+      tier: "coding"
+      default: true
+    - id: "gpt-5"
+      label: "GPT-5"
+      tier: "general"
+  droid:
+    - id: "claude-sonnet-4-5-20250929"
+      label: "Claude Sonnet 4.5 (via Droid)"
+      tier: "balanced"
+      default: true
+    - id: "gpt-5-codex"
+      label: "GPT-5 Codex (via Droid)"
+      tier: "coding"
+    - id: "glm-4.6"
+      label: "Droid Core (GLM-4.6)"
+      tier: "open-source"
+  gemini:
+    - id: "gemini-2.5-pro"
+      label: "Gemini 2.5 Pro"
+      tier: "general"
+      default: true
+
+storage:
+  transcripts_dir: "transcripts"
+  format: "markdown"
+  auto_export: true
+
+mcp:
+  # Maximum rounds to include in MCP response (to avoid token limit)
+  # Full transcript is always saved to file - this only affects MCP response size
+  max_rounds_in_response: 3
+
+deliberation:
+  # Convergence detection settings
+  convergence_detection:
+    enabled: true
+
+    # Similarity thresholds
+    semantic_similarity_threshold: 0.85 # Models converged if similarity >= this
+    divergence_threshold: 0.40 # Models diverging if similarity < this
+
+    # Round constraints
+    min_rounds_before_check: 1 # Check convergence starting from round 2 (need 2 rounds to compare)
+    consecutive_stable_rounds: 2 # Require 2 stable rounds to confirm
+
+    # Secondary metrics
+    stance_stability_threshold: 0.80 # 80% of participants must have stable stances
+    response_length_drop_threshold: 0.40 # Flag if response length drops >40%
+
+  # Model-controlled early stopping
+  early_stopping:
+    enabled: true
+    threshold: 0.66 # Stop if >=66% of models want to stop (2/3 consensus)
+    respect_min_rounds: true # Don't stop before defaults.rounds is reached
+
+  # Legacy settings (keep these)
+  convergence_threshold: 0.8
+  enable_convergence_detection: true
+
+  # File tree injection for Round 1
+  file_tree:
+    enabled: true
+    max_depth: 3
+    max_files: 100
+
+  # Tool security settings (prevents context contamination)
+  tool_security:
+    exclude_patterns:
+      - "transcripts/"      # Exclude deliberation transcripts (prevents models from reading about other codebases)
+      - "transcripts/**"
+      - ".git/"            # Exclude version control
+      - ".git/**"
+      - "node_modules/"    # Exclude dependencies
+      - "node_modules/**"
+      - ".venv/"           # Exclude Python virtual environments
+      - "venv/"
+      - "__pycache__/"     # Exclude Python cache
+    max_file_size_bytes: 1048576  # 1MB limit for read_file
+
+# Decision Graph Memory
+decision_graph:
+  enabled: true # Feature toggle (opt-in)
+  db_path: "decision_graph.db" # Relative to project root - works for any user
+
+  # DEPRECATED: similarity_threshold is no longer used. Use tier_boundaries instead.
+  similarity_threshold: 0.6 # Minimum similarity score for context injection (0.0-1.0)
+
+  # NEW: Budget-aware context injection parameters
+  context_token_budget: 1500 # Max tokens for context injection (prevents token bloat)
+  tier_boundaries:
+    strong: 0.75 # Strong matches get full formatting (~500 tokens each)
+    moderate: 0.60 # Moderate matches get summary formatting (~200 tokens each)
+  query_window: 1000 # Recent decisions to query (scalability limit)
+
+  # Cache configuration
+  query_cache_size: 200 # L1 cache size for query results
+  embedding_cache_size: 500 # L2 cache size for embeddings
+  query_ttl: 300 # Cache TTL in seconds (5 minutes)
+
+  # Adaptive K configuration (retrieval candidate selection)
+  adaptive_k_small_threshold: 100 # DB size threshold for small DB
+  adaptive_k_medium_threshold: 1000 # DB size threshold for medium DB
+  adaptive_k_small: 5 # Candidates for small DB (<100 decisions)
+  adaptive_k_medium: 3 # Candidates for medium DB (100-999 decisions)
+  adaptive_k_large: 2 # Candidates for large DB (≥1000 decisions)
+
+  # Similarity filtering
+  noise_floor: 0.40 # Filter out results below this similarity score
+
+  # Keep for backward compatibility
+  max_context_decisions: 3 # Maximum number of past decisions to inject as context
+  compute_similarities: true # Compute edge similarities after storing deliberation

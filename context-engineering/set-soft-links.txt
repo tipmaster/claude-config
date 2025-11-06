@@ -1,0 +1,4 @@
+ln -s ../context-engineering/AGENTS.MD AGENTS.MD
+ln -s ../context-engineering/CLAUDE.MD CLAUDE.MD
+ln -s ../context-engineering/GEMINI.MD GEMINI.MD
+ln -s ../context-engineering/SHARED_INSTRUCTIONS.MD SHARED_INSTRUCTIONS.MD

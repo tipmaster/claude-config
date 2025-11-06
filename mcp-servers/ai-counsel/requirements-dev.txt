@@ -1,0 +1,8 @@
+# ai-counsel/requirements-dev.txt
+-r requirements.txt
+pytest==8.4.2
+pytest-asyncio==1.2.0
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+black==23.12.1
+ruff==0.1.9

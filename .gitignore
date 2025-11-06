@@ -1,0 +1,163 @@
+# ==========================================
+# Claude Config - Comprehensive .gitignore
+# ==========================================
+
+# ====================
+# SECRETS (CRITICAL - NEVER COMMIT)
+# ====================
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+secret*.txt
+*_secret*
+*_secrets*
+
+# ====================
+# DEPENDENCIES (NEVER COMMIT - REINSTALL VIA PACKAGE MANAGERS)
+# ====================
+node_modules/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+dist/
+build/
+
+# ====================
+# GENERATED CONFIGS (REGENERATED FROM TEMPLATES)
+# ====================
+# These are generated from templates + .env
+settings.json
+config.json
+
+# But keep templates and base configs
+!*.template
+!*.example
+!*.base.json
+!*-overrides.json
+
+# ====================
+# LOGS & RUNTIME DATA
+# ====================
+*.log
+logs/
+debug/
+cache/
+.cache/
+.ck/
+tmp/
+temp/
+*.tmp
+*.db
+*.sqlite
+*.sqlite3
+decision_graph.db
+
+# ====================
+# macOS
+# ====================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ====================
+# IDE & EDITOR
+# ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-*
+.project
+.settings/
+
+# ====================
+# CLAUDE CODE EPHEMERAL DATA (SESSION/RUNTIME ONLY)
+# ====================
+# These should NOT be versioned - they're session-specific
+session-env/
+file-history/
+shell-snapshots/
+todos/
+statsig/
+history.jsonl
+projects/
+
+# ====================
+# TESTING
+# ====================
+.coverage
+coverage/
+htmlcov/
+.tox/
+.hypothesis/
+
+# ====================
+# BACKUPS
+# ====================
+*.backup
+*.bak
+*.old
+
+# ====================
+# COMPILED/PLATFORM-SPECIFIC
+# ====================
+*.so
+*.dylib
+*.dll
+*.exe
+*.o
+*.a
+
+# ====================
+# GIT
+# ====================
+**/.git/
+.git/
+!.gitignore
+!.gitattributes
+
+# ====================
+# TRANSCRIPTS (TEMPORARY/GENERATED CONTENT)
+# ====================
+transcripts/*
+!transcripts/.gitkeep
+
+# ====================
+# EXCEPTIONS (MUST KEEP THESE)
+# ====================
+# Override earlier exclusions for files we DO want
+!scripts/*.sh
+!hooks/*.sh
+!hooks/*.py
+!config/**/*.json
+!config/**/*.sh
+!.env.example
+!README.md
+!**/SKILL.md
+!**/package.json
+!**/requirements.txt

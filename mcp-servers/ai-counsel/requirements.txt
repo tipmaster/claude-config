@@ -1,0 +1,20 @@
+# ai-counsel/requirements.txt
+# Core dependencies
+mcp>=1.0.0
+pydantic>=2.5.0
+pyyaml>=6.0.1
+
+# HTTP client and retry logic for HTTP adapters
+httpx>=0.27.0
+tenacity>=8.2.0
+
+# Test dependencies
+vcrpy>=4.4.0  # HTTP response recording for tests
+
+# Enhanced convergence detection backends
+# TF-IDF similarity backend (good performance, moderate accuracy)
+scikit-learn>=1.3.0
+
+# Neural semantic similarity backend (best performance, highest accuracy)
+# Provides most accurate convergence detection and vote grouping
+sentence-transformers>=2.2.0

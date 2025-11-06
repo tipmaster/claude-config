@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "chrome-bridge": {
+      "command": "mcp-chrome-stdio"
+    },
+    "chrome-mcp": {
+      "command": "node",
+      "args": [
+        "${REPO_ROOT}/mcp-servers/chrome-mcp/run-server.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
