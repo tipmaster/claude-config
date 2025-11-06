@@ -8,13 +8,13 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "${REPO_ROOT}/config/base/statusline.sh"
+    "command": "${REPO_ROOT}/config/statusline.sh"
   },
   "enabledPlugins": {
     "playwright-skill@playwright-skill": true,
     "superpowers@superpowers-marketplace": true
   },
-  "alwaysThinkingEnabled": true,
+  "alwaysThinkingEnabled": false,
   "mcpServers": {
     "serena": {
       "command": "uvx",
@@ -28,7 +28,7 @@
       ]
     },
     "headless-terminal": {
-      "command": "ht-mcp"
+      "command": "/usr/local/bin/ht-mcp"
     },
     "dataforseo": {
       "command": "ssh",
@@ -38,6 +38,18 @@
         "root@nue",
         "cd /opt/mcp-server-typescript && node build/main/main/cli.js"
       ]
+    },
+    "chrome-bridge": {
+      "command": "mcp-chrome-stdio"
+    },
+    "chrome-mcp": {
+      "command": "node",
+      "args": [
+        "${REPO_ROOT}/mcp-servers/chrome-mcp/run-server.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      }
     },
     "zen": {
       "command": "bash",
@@ -54,16 +66,24 @@
       }
     },
     "ai-counsel": {
-      "command": "${REPO_ROOT}/mcp-servers/ai-counsel/.venv/bin/python",
+      "command": "python",
       "args": [
         "${REPO_ROOT}/mcp-servers/ai-counsel/server.py"
       ],
       "env": {
         "OPENAI_API_KEY": "${OPENAI_API_KEY}",
         "GOOGLE_API_KEY": "${GOOGLE_API_KEY}",
-        "ANTHROPIC_API_KEY": "${ANTHROPIC_API_KEY}",
-        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}",
         "PYTHONPATH": "${REPO_ROOT}/mcp-servers/ai-counsel"
+      }
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       }
     }
   }

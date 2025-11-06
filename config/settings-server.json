@@ -1,0 +1,68 @@
+{
+  "permissions": {
+    "allow": [
+      "Ck"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "${REPO_ROOT}/config/statusline.sh"
+  },
+  "enabledPlugins": {
+    "playwright-skill@playwright-skill": true,
+    "superpowers@superpowers-marketplace": true
+  },
+  "alwaysThinkingEnabled": false,
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ]
+    },
+    "headless-terminal": {
+      "command": "ht-mcp"
+    },
+    "dataforseo": {
+      "command": "ssh",
+      "args": [
+        "-p",
+        "55000",
+        "root@nue",
+        "cd /opt/mcp-server-typescript && node build/main/main/cli.js"
+      ]
+    },
+    "zen": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "for p in $(which uvx 2>/dev/null) ${HOME}/.local/bin/uvx /opt/homebrew/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/zen-mcp-server.git zen-mcp-server; done; echo 'uvx not found' >&2; exit 1"
+      ],
+      "env": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:${HOME}/.local/bin",
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "DISABLED_TOOLS": "${DISABLED_TOOLS}",
+        "DEFAULT_MODEL": "${DEFAULT_MODEL}"
+      }
+    },
+    "ai-counsel": {
+      "command": "python",
+      "args": [
+        "${REPO_ROOT}/mcp-servers/ai-counsel/server.py"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}",
+        "PYTHONPATH": "${REPO_ROOT}/mcp-servers/ai-counsel"
+      }
+    }
+  }
+}

@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(done)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(claude mcp:*)",
+      "Bash(python3:*)"
     ],
     "deny": [],
     "ask": []
