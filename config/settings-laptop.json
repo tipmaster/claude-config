@@ -1,4 +1,6 @@
 {
+  "installMethod": "unknown",
+  "autoUpdates": true,
   "permissions": {
     "allow": [
       "Ck"
@@ -31,13 +33,14 @@
       "command": "/usr/local/bin/ht-mcp"
     },
     "dataforseo": {
-      "command": "ssh",
+      "command": "node",
       "args": [
-        "-p",
-        "55000",
-        "root@nue",
-        "cd /opt/mcp-server-typescript && node build/main/main/cli.js"
-      ]
+        "${REPO_ROOT}/mcp-servers/mcp-seo/build/main/main/cli.js"
+      ],
+      "env": {
+        "DATAFORSEO_USERNAME": "${DATAFORSEO_USERNAME}",
+        "DATAFORSEO_PASSWORD": "${DATAFORSEO_PASSWORD}"
+      }
     },
     "chrome-bridge": {
       "command": "mcp-chrome-stdio"
@@ -86,5 +89,6 @@
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       }
     }
-  }
+  },
+  "userID": "e5592dc6f56aefa4c24ca25612dca4ebe7084ef46ffcb59f75b6ad67defca8fc"
 }
