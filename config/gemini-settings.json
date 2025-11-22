@@ -30,7 +30,8 @@
     "chrome-bridge": {
       "type": "local",
       "command": ["mcp-chrome-stdio"],
-      "enabled": true
+      "enabled": false,
+      "comment": "Requires Chrome browser running and Chrome MCP extension installed. Enable when needed."
     },
     "zen": {
       "type": "local",
