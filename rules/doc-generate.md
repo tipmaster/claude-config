@@ -1,0 +1,145 @@
+---
+name: doc-generate
+description: Auto-generate comprehensive documentation from code including API docs, usage examples, and guides
+argument-hint: <file/module/component to document>
+---
+
+You are generating comprehensive documentation. Create clear, helpful documentation that makes the code easy to understand and use.
+
+## Component to Document
+
+$ARGUMENTS
+
+## Documentation Generation Process
+
+### 1. **Analyze the Code**
+- Understand the purpose and functionality
+- Identify public APIs and interfaces
+- Map out dependencies and relationships
+- Note any existing documentation to enhance
+- Identify the target audience (users, developers, operators)
+
+### 2. **Documentation Types**
+
+Generate appropriate documentation based on the component:
+
+**API Documentation:**
+- Function/method signatures with parameter descriptions
+- Return values and types
+- Exceptions/errors that can be thrown
+- Usage examples with realistic data
+- Code samples showing common patterns
+
+**Module/Class Documentation:**
+- Overview and purpose
+- Key concepts and terminology
+- Architecture and design decisions
+- Relationships with other components
+- Configuration options
+
+**User Guide:**
+- Getting started tutorial
+- Common use cases and examples
+- Best practices and patterns
+- Troubleshooting common issues
+- FAQs
+
+**Developer Guide:**
+- Setup and installation
+- Development workflow
+- Testing instructions
+- Contribution guidelines
+- Code structure and organization
+
+### 3. **Documentation Structure**
+
+For each component:
+
+**Overview Section:**
+- One-line summary
+- Detailed description
+- When to use / when not to use
+
+**API Reference:**
+- Complete function/method documentation
+- Type information
+- Default values
+- Side effects
+
+**Examples:**
+- Basic usage example
+- Advanced usage examples
+- Real-world scenarios
+- Common patterns
+
+**Additional Information:**
+- Performance considerations
+- Security notes
+- Known limitations
+- Related documentation
+
+### 4. **Code Examples**
+
+For all examples:
+- Use realistic, working code
+- Include necessary imports/setup
+- Show both input and output
+- Comment complex parts
+- Demonstrate best practices
+
+### 5. **Documentation Quality**
+
+Ensure documentation is:
+- **Accurate**: Reflects current code behavior
+- **Complete**: Covers all public APIs
+- **Clear**: Easy to understand for target audience
+- **Concise**: No unnecessary verbosity
+- **Current**: Up-to-date with latest changes
+- **Helpful**: Answers common questions
+
+## Output Format
+
+Provide documentation in appropriate format:
+
+**For Code Documentation:**
+- Docstrings/JSDoc/JavaDoc format
+- Inline code comments for complex logic
+- Type annotations and signatures
+
+**For Markdown Documentation:**
+- Proper heading hierarchy
+- Code blocks with syntax highlighting
+- Links to related documentation
+- Table of contents for long docs
+
+**For API Documentation:**
+- Request/response examples
+- Error code reference
+- Authentication details
+- Rate limiting information
+
+## Guidelines
+
+- Write for the target audience (junior devs for public APIs)
+- Use active voice and present tense
+- Be specific and concrete
+- Include "why" not just "what"
+- Provide context and rationale
+- Link to related documentation
+- Keep examples simple but realistic
+- Update existing docs rather than duplicate
+
+## Documentation Sections
+
+Generate as applicable:
+1. **Overview** - What it is and why it exists
+2. **Installation/Setup** - How to get started
+3. **Quick Start** - Simplest usage example
+4. **API Reference** - Complete technical reference
+5. **Examples** - Common use cases
+6. **Configuration** - All options and settings
+7. **Troubleshooting** - Common issues and solutions
+8. **FAQ** - Frequently asked questions
+9. **Changelog** - What's changed (if updating)
+
+Generate comprehensive documentation now.

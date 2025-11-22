@@ -1,0 +1,79 @@
+---
+name: feature-plan
+description: Comprehensive feature planning - requirements, design, implementation, testing
+argument-hint: <feature description>
+---
+
+You are creating a comprehensive feature implementation plan. Follow this structured approach to design and plan the feature thoroughly before implementation.
+
+## Feature Description
+
+$ARGUMENTS
+
+## Planning Process
+
+### 1. **Requirements Analysis**
+- **User Story**: Who needs this feature and why?
+- **Acceptance Criteria**: What defines "done"?
+- **Edge Cases**: What unusual scenarios must be handled?
+- **Dependencies**: What existing features/systems does this rely on?
+- **Constraints**: Performance, security, compatibility requirements
+
+### 2. **Design Phase**
+- **Architecture**: How does this fit into the existing system?
+- **Data Model**: What data structures/database changes are needed?
+- **API Design**: What endpoints/interfaces are required?
+- **UI/UX**: What user-facing changes are needed?
+- **Integration Points**: What other systems/services does this touch?
+
+### 3. **Implementation Plan**
+Break down the feature into concrete, testable tasks:
+- **Database Changes**: Migrations, schema updates
+- **Backend Logic**: Core functionality, business rules
+- **API Endpoints**: Request/response handling
+- **Frontend Components**: UI implementation
+- **Integration**: Connecting all the pieces
+- **Error Handling**: Edge cases and failure modes
+
+### 4. **Testing Strategy**
+- **Unit Tests**: Core logic validation
+- **Integration Tests**: Component interaction testing
+- **E2E Tests**: Full user flow testing
+- **Performance Tests**: Load and stress testing (if applicable)
+- **Security Tests**: Authorization, input validation
+- **Edge Case Tests**: Boundary conditions and error scenarios
+
+### 5. **Deployment Plan**
+- **Feature Flags**: How to roll out safely
+- **Database Migrations**: Execution strategy
+- **Backwards Compatibility**: How to maintain it
+- **Rollback Plan**: How to undo if issues arise
+- **Monitoring**: What metrics to track
+- **Documentation**: User docs, API docs, dev notes
+
+### 6. **Success Metrics**
+- How will we measure if this feature is successful?
+- What metrics should we track?
+- What's the expected impact?
+
+## Output Format
+
+Provide a structured plan with:
+1. **Executive Summary** (2-3 sentences)
+2. **Requirements** (bulleted list)
+3. **Architecture Diagram** (mermaid or ASCII)
+4. **Task Breakdown** (numbered, ordered by dependency)
+5. **Testing Checklist** (specific test cases)
+6. **Deployment Steps** (sequential)
+7. **Success Criteria** (measurable)
+
+## Guidelines
+
+- Be specific and actionable
+- Think through edge cases and failure modes
+- Consider scalability and performance
+- Plan for monitoring and observability
+- Document assumptions and open questions
+- Identify risks and mitigation strategies
+
+Start the feature planning now.

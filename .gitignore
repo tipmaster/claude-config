@@ -108,6 +108,15 @@ history.jsonl
 projects/
 
 # ====================
+# OPENCODE EPHEMERAL DATA (SESSION/RUNTIME ONLY)
+# ====================
+# Exclude OpenCode session data and temporary files
+.opencode/
+*.opencode.tmp
+opencode-session/
+opencode-cache/
+
+# ====================
 # TESTING
 # ====================
 .coverage

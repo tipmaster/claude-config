@@ -348,8 +348,96 @@ mv ~/.claude.backup.YYYYMMDD_HHMMSS ~/.claude
 
 ---
 
+## 🚀 OpenCode Integration
+
+**NEW:** This repository now supports [OpenCode](https://opencode.ai), an open-source terminal-based AI coding agent!
+
+### Why OpenCode?
+
+Use OpenCode alongside Claude Code to gain:
+- **Multi-Model Support** - Claude, OpenAI, Gemini, AWS Bedrock, Groq
+- **Terminal-First Workflow** - Perfect for SSH sessions and quick iterations
+- **Same MCP Servers** - All 10 MCP servers work with both tools
+- **Shared Configuration** - Agents and rules synced through version control
+
+### Quick Setup
+
+```bash
+# 1. Install OpenCode
+brew install opencode  # macOS
+npm install -g opencode  # Cross-platform
+
+# 2. Symlinks are already created (if you ran install-laptop.sh)
+ls -la ~/.config/opencode/
+# Should show:
+#   opencode.json → /path/to/claude-config/config/opencode.json
+#   agent/repo-agents → /path/to/claude-config/agents
+#   rule/repo-rules → /path/to/claude-config/rules
+
+# 3. Launch OpenCode
+cd ~/dev/tfwg/your-project
+opencode
+```
+
+### What's Included
+
+**MCP Servers (10):** All configured and ready
+- serena, headless-terminal, dataforseo, chrome-bridge, zen
+- brave-search, filesystem, memory, sqlite, promos
+
+**Agents (19):** Shared with Claude Code through symlinks
+
+**Rules (5):** Converted from slash commands
+- feature-plan, debug-loop, test-suite, api-spec, doc-generate
+
+### Dual-Tool Workflow
+
+**Recommended setup:**
+```
+Terminal 1: Claude Code (IDE integration)
+  $ claude
+
+Terminal 2: OpenCode (quick iterations)
+  $ opencode
+
+Terminal 3: VS Code with OpenCode split
+  Cmd+Esc / Ctrl+Esc to toggle
+```
+
+**When to use each:**
+- **Claude Code:** Full IDE integration, complex edits, visual diffs, git ops
+- **OpenCode:** Terminal tasks, server/SSH work, multi-model experiments, fast iterations
+
+### Configuration
+
+OpenCode configuration lives in:
+- `config/opencode.json` (version controlled)
+- Symlinked to `~/.config/opencode/opencode.json`
+
+Same environment variables work for both:
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+export BRAVE_API_KEY="..."
+export DATAFORSEO_USERNAME="..."
+export DATAFORSEO_PASSWORD="..."
+export GEMINI_API_KEY="..."
+export OPENAI_API_KEY="..."
+```
+
+### Documentation
+
+See [`docs/OPENCODE_SETUP.md`](docs/OPENCODE_SETUP.md) for:
+- Complete installation guide
+- MCP server troubleshooting
+- Advanced configuration
+- Dual-tool workflows
+- Quick reference card
+
+---
+
 ## 📚 Documentation
 
+- [`docs/OPENCODE_SETUP.md`](docs/OPENCODE_SETUP.md) - OpenCode setup and usage guide
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) - Complete inventory of copied resources
 - [`docs/SOP-NEW-PROJECT.md`](docs/SOP-NEW-PROJECT.md) - Setting up new projects (TODO)
 - [`docs/SOP-UPDATE-AGENT-OS.md`](docs/SOP-UPDATE-AGENT-OS.md) - Updating Agent OS (TODO)

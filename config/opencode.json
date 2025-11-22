@@ -1,0 +1,74 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "providers": {
+    "anthropic": {
+      "apiKey": "{env:ANTHROPIC_API_KEY}"
+    }
+  },
+  "mcp": {
+    "serena": {
+      "type": "local",
+      "command": ["uvx", "--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "ide-assistant"],
+      "enabled": true
+    },
+    "headless-terminal": {
+      "type": "local",
+      "command": ["/usr/local/bin/ht-mcp"],
+      "enabled": true
+    },
+    "dataforseo": {
+      "type": "local",
+      "command": ["node", "/Users/administrator/dev/tfwg/claude-config/mcp-servers/mcp-seo/build/main/main/cli.js"],
+      "enabled": true,
+      "environment": {
+        "DATAFORSEO_USERNAME": "{env:DATAFORSEO_USERNAME}",
+        "DATAFORSEO_PASSWORD": "{env:DATAFORSEO_PASSWORD}"
+      }
+    },
+    "chrome-bridge": {
+      "type": "local",
+      "command": ["mcp-chrome-stdio"],
+      "enabled": true
+    },
+    "zen": {
+      "type": "local",
+      "command": ["bash", "-c", "for p in $(which uvx 2>/dev/null) ${HOME}/.local/bin/uvx /opt/homebrew/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/zen-mcp-server.git zen-mcp-server; done; echo 'uvx not found' >&2; exit 1"],
+      "enabled": true,
+      "environment": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:{env:HOME}/.local/bin",
+        "GEMINI_API_KEY": "{env:GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "{env:OPENAI_API_KEY}",
+        "DISABLED_TOOLS": "{env:DISABLED_TOOLS}",
+        "DEFAULT_MODEL": "{env:DEFAULT_MODEL}"
+      }
+    },
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-brave-search"],
+      "enabled": true,
+      "environment": {
+        "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
+      }
+    },
+    "filesystem": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/Users/administrator/dev"],
+      "enabled": true
+    },
+    "memory": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
+      "enabled": true
+    },
+    "sqlite": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sqlite", "--db-path", "/Users/administrator/dev"],
+      "enabled": true
+    },
+    "promos": {
+      "type": "local",
+      "command": ["node", "/Users/administrator/dev/tfwg/promos/mcp-server.js"],
+      "enabled": true
+    }
+  }
+}

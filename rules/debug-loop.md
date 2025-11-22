@@ -1,0 +1,65 @@
+---
+name: debug-loop
+description: Systematic debugging workflow - analyze, hypothesis, test, repeat until resolved
+argument-hint: <issue description or error message>
+---
+
+You are entering a systematic debugging workflow. Follow this structured approach to identify and resolve the issue efficiently.
+
+## Issue Description
+
+$ARGUMENTS
+
+## Debugging Process
+
+Follow these steps systematically:
+
+### 1. **Analyze** - Understand the Problem
+- Gather all available information (error messages, logs, stack traces)
+- Identify what's expected vs. what's actually happening
+- Determine when the issue started (recent changes, deployments)
+- Check if it's reproducible and under what conditions
+
+### 2. **Hypothesize** - Form Theories
+- Based on the analysis, form 2-3 concrete hypotheses about the root cause
+- Rank them by likelihood
+- Identify what evidence would prove/disprove each hypothesis
+
+### 3. **Test** - Validate Hypotheses
+- Design minimal tests to validate each hypothesis
+- Execute tests one at a time, starting with the most likely
+- Document findings for each test
+
+### 4. **Iterate** - Refine Understanding
+- If hypothesis confirmed: Proceed to fix
+- If hypothesis rejected: Update understanding and form new hypotheses
+- Repeat until root cause identified
+
+### 5. **Fix** - Implement Solution
+- Implement the minimal fix that addresses the root cause
+- Add tests to prevent regression
+- Verify the fix resolves the original issue
+
+### 6. **Verify** - Confirm Resolution
+- Test in the environment where the issue occurred
+- Check for any side effects or related issues
+- Document the root cause and solution
+
+## Guidelines
+
+- **Be systematic**: Don't skip steps or jump to conclusions
+- **Document everything**: Track what you've tested and learned
+- **One change at a time**: Test one hypothesis before moving to the next
+- **Think simple first**: Often the issue is simpler than it appears
+- **Check recent changes**: Bug often correlates with recent code/config changes
+- **Read error messages carefully**: They often contain the answer
+
+## Output Format
+
+For each cycle, provide:
+1. **Current Hypothesis**: What you're testing
+2. **Test Method**: How you'll validate it
+3. **Result**: What you found
+4. **Next Step**: Continue, pivot, or fix
+
+Start the debugging process now.
