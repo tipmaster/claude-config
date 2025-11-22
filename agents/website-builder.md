@@ -1,7 +1,6 @@
 ---
 name: website-builder
 description: The **website-builder** subagent creates high-performance, SEO-optimized static websites from sitemaps, templates, and component specifications. It specializes in sports streaming experiences built with static HTML/CSS/JS.
-category: websites
 ---
 ## Agent Overview
 

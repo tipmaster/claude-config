@@ -1,77 +1,114 @@
 {
   "$schema": "https://gemini.google.com/config.json",
-  "comment": "Gemini CLI configuration - references shared MCP servers from config/shared/mcp-servers.json",
-  "providers": {
-    "google": {
-      "apiKey": "${GEMINI_API_KEY}",
-      "model": "gemini-2.0-flash-exp"
+  "comment": "Gemini CLI configuration - MCP servers in Gemini CLI format. Use 'gemini --yolo' for autonomous execution or 'gemini --approval-mode auto_edit' for auto-approve edits only.",
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
     }
   },
-  "mcp": {
+  "approvalMode": "auto_edit",
+  "allowedMcpServerNames": [
+    "serena",
+    "headless-terminal",
+    "dataforseo",
+    "chrome-bridge",
+    "zen",
+    "brave-search",
+    "filesystem",
+    "memory",
+    "promos"
+  ],
+  "mcpServers": {
     "serena": {
-      "type": "local",
-      "command": ["uvx", "--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "ide-assistant"],
-      "enabled": true
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "timeout": 30000
     },
     "headless-terminal": {
-      "type": "local",
-      "command": ["/usr/local/bin/ht-mcp"],
-      "enabled": true
+      "command": "/usr/local/bin/ht-mcp",
+      "timeout": 30000
     },
     "dataforseo": {
-      "type": "local",
-      "command": ["node", "/Users/administrator/dev/tfwg/claude-config/mcp-servers/mcp-seo/build/main/main/cli.js"],
-      "enabled": true,
-      "environment": {
+      "command": "node",
+      "args": [
+        "/Users/administrator/dev/tfwg/claude-config/mcp-servers/mcp-seo/build/main/main/cli.js"
+      ],
+      "env": {
         "DATAFORSEO_USERNAME": "${DATAFORSEO_USERNAME}",
         "DATAFORSEO_PASSWORD": "${DATAFORSEO_PASSWORD}"
-      }
-    },
-    "chrome-bridge": {
-      "type": "local",
-      "command": ["mcp-chrome-stdio"],
-      "enabled": false,
-      "comment": "Requires Chrome browser running and Chrome MCP extension installed. Enable when needed."
+      },
+      "timeout": 30000
     },
     "zen": {
-      "type": "local",
-      "command": ["bash", "-c", "for p in $(which uvx 2>/dev/null) ${HOME}/.local/bin/uvx /opt/homebrew/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/zen-mcp-server.git zen-mcp-server; done; echo 'uvx not found' >&2; exit 1"],
-      "enabled": true,
-      "environment": {
+      "command": "bash",
+      "args": [
+        "-c",
+        "for p in $(which uvx 2>/dev/null) ${HOME}/.local/bin/uvx /opt/homebrew/bin/uvx /usr/local/bin/uvx uvx; do [ -x \"$p\" ] && exec \"$p\" --from git+https://github.com/BeehiveInnovations/zen-mcp-server.git zen-mcp-server; done; echo 'uvx not found' >&2; exit 1"
+      ],
+      "env": {
         "PATH": "/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:${HOME}/.local/bin",
         "GEMINI_API_KEY": "${GEMINI_API_KEY}",
         "OPENAI_API_KEY": "${OPENAI_API_KEY}",
         "DISABLED_TOOLS": "${DISABLED_TOOLS}",
         "DEFAULT_MODEL": "${DEFAULT_MODEL}"
-      }
+      },
+      "timeout": 30000
+    },
+    "chrome-bridge": {
+      "command": "mcp-chrome-stdio",
+      "timeout": 30000
     },
     "brave-search": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-brave-search"],
-      "enabled": true,
-      "environment": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      }
+      },
+      "timeout": 30000
     },
     "filesystem": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "/Users/administrator/dev"],
-      "enabled": true
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/administrator/dev"
+      ],
+      "timeout": 30000
     },
     "memory": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
-      "enabled": true
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "timeout": 30000
     },
     "sqlite": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-sqlite", "--db-path", "/Users/administrator/dev"],
-      "enabled": true
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "/Users/administrator/dev"
+      ],
+      "timeout": 30000
     },
     "promos": {
-      "type": "local",
-      "command": ["node", "/Users/administrator/dev/tfwg/promos/mcp-server.js"],
-      "enabled": true
+      "command": "node",
+      "args": [
+        "/Users/administrator/dev/tfwg/promos/mcp-server.js"
+      ],
+      "timeout": 30000
     }
   }
 }

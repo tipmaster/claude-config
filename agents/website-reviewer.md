@@ -1,7 +1,6 @@
 ---
 name: website-reviewer
 description: The **website-reviewer** subagent is responsible for comprehensive quality assurance and validation of websites built by the website-builder subagent. The reviewer ensures all pages meet SEO standards, performance requirements, accessibility guidelines, and content quality benchmarks.
-category: websites
 ---
 
 ## Agent Overview

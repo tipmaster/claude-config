@@ -1,0 +1,98 @@
+{
+  "$schema": "https://github.com/modelcontextprotocol/specification/blob/main/schema/mcp-config.schema.json",
+  "comment": "GitHub Copilot CLI - MCP server configuration. Use 'copilot --allow-all-tools' for autonomous execution.",
+  "mcpServers": {
+    "serena": {
+      "type": "local",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide-assistant"
+      ],
+      "tools": ["*"]
+    },
+    "headless-terminal": {
+      "type": "local",
+      "command": "/usr/local/bin/ht-mcp",
+      "args": [],
+      "tools": ["*"]
+    },
+    "dataforseo": {
+      "type": "local",
+      "command": "node",
+      "args": [
+        "/Users/administrator/dev/tfwg/claude-config/mcp-servers/mcp-seo/build/main/main/cli.js"
+      ],
+      "env": {
+        "DATAFORSEO_USERNAME": "${DATAFORSEO_USERNAME}",
+        "DATAFORSEO_PASSWORD": "${DATAFORSEO_PASSWORD}"
+      },
+      "tools": ["*"]
+    },
+    "chrome-bridge": {
+      "type": "local",
+      "command": "mcp-chrome-stdio",
+      "args": [],
+      "tools": ["*"]
+    },
+    "zen": {
+      "type": "local",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/BeehiveInnovations/zen-mcp-server.git",
+        "zen-mcp-server"
+      ],
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+        "DEFAULT_MODEL": "auto",
+        "DISABLED_TOOLS": "analyze,refactor,testgen,secaudit,docgen,tracer"
+      },
+      "tools": ["*"]
+    },
+    "brave-search": {
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      },
+      "tools": ["*"]
+    },
+    "filesystem": {
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/administrator/dev"
+      ],
+      "tools": ["*"]
+    },
+    "memory": {
+      "type": "local",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "tools": ["*"]
+    },
+    "promos": {
+      "type": "local",
+      "command": "node",
+      "args": [
+        "/Users/administrator/dev/tfwg/promos/mcp-server.js"
+      ],
+      "tools": ["*"]
+    }
+  }
+}

@@ -1,0 +1,118 @@
+# Codex CLI Configuration
+# This is a template - use scripts/generate-codex-config.sh to create actual config with secrets
+
+model = "gpt-5.1-codex-max"
+model_reasoning_effort = "medium"
+trust_level = "trusted"
+file_opener = "vscode"
+
+# Autonomous execution settings
+# Use --full-auto flag when launching for maximum autonomy
+# Or configure defaults here:
+approval_mode = "on-request"  # Model decides when to ask for approval
+sandbox = "workspace-write"   # Allow file writes in workspace
+
+[features]
+web_search_request = true
+view_image_tool = true
+
+[sandbox_workspace_write]
+network_access = true
+
+# Sandbox permissions
+sandbox_permissions = ["disk-full-read-access"]
+
+# Shell environment - inherit all env vars
+[shell_environment_policy]
+inherit = "all"
+
+# Project-specific trust levels
+[projects."/Users/administrator/dev/tfwg/claude-config"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/lt"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/serverconfig"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/tax"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/youtube-monitor"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/gsc-center"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/emd"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/.claude/agents"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/sportmonks-embed"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/marathon-training-automation"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/promos"]
+trust_level = "trusted"
+
+[projects."/Users/administrator/dev/tfwg/auto-domain-bootstrap"]
+trust_level = "trusted"
+
+# MCP Servers - 9 total (chrome-bridge, NOT chrome-mcp)
+# Note: sqlite removed - package doesn't exist in npm
+
+[mcp_servers.serena]
+command = "uvx"
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "ide-assistant"]
+
+[mcp_servers.headless-terminal]
+command = "/usr/local/bin/ht-mcp"
+
+[mcp_servers.dataforseo]
+command = "node"
+args = ["/Users/administrator/dev/tfwg/claude-config/mcp-servers/mcp-seo/build/main/main/cli.js"]
+
+[mcp_servers.dataforseo.env]
+DATAFORSEO_USERNAME = "$DATAFORSEO_USERNAME"
+DATAFORSEO_PASSWORD = "$DATAFORSEO_PASSWORD"
+
+[mcp_servers.chrome-bridge]
+command = "mcp-chrome-stdio"
+
+[mcp_servers.zen]
+command = "uvx"
+args = ["--from", "git+https://github.com/BeehiveInnovations/zen-mcp-server.git", "zen-mcp-server"]
+
+[mcp_servers.zen.env]
+GEMINI_API_KEY = "$GEMINI_API_KEY"
+OPENAI_API_KEY = "$OPENAI_API_KEY"
+DEFAULT_MODEL = "auto"
+DISABLED_TOOLS = "analyze,refactor,testgen,secaudit,docgen,tracer"
+
+[mcp_servers.brave-search]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-brave-search"]
+
+[mcp_servers.brave-search.env]
+BRAVE_API_KEY = "$BRAVE_API_KEY"
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "/Users/administrator/dev"]
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.promos]
+command = "node"
+args = ["/Users/administrator/dev/tfwg/promos/mcp-server.js"]
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+"hide_gpt-5.1-codex-max_migration_prompt" = true
