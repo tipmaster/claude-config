@@ -1,0 +1,101 @@
+name = "test-suite"
+description = "Generate comprehensive test suite with unit, integration, and edge case tests"
+argument_hint = "<component/function/module to test>"
+
+[prompt]
+content = """
+You are generating a comprehensive test suite. Create thorough, well-structured tests that validate correctness, handle edge cases, and prevent regressions.
+
+## Component to Test
+
+{{.Arguments}}
+
+## Test Suite Generation Process
+
+### 1. **Analyze the Component**
+- Read and understand the code/functionality
+- Identify all public interfaces and behaviors
+- Map out the expected inputs and outputs
+- Identify dependencies and side effects
+- Note any existing tests to build upon
+
+### 2. **Test Categories**
+
+Generate tests across these categories:
+
+**Unit Tests:**
+- Happy path scenarios (expected usage)
+- Input validation and type checking
+- Boundary conditions (min/max values, empty inputs)
+- Error conditions and exceptions
+- State changes and side effects
+- Return value correctness
+
+**Integration Tests:**
+- Component interactions
+- Database operations (if applicable)
+- API calls and external services
+- File I/O operations
+- Authentication/authorization flows
+
+**Edge Cases:**
+- Null/undefined/empty inputs
+- Very large inputs (performance)
+- Concurrent operations (race conditions)
+- Network failures and timeouts
+- Invalid data formats
+- Permission/authorization failures
+
+### 3. **Test Structure**
+
+For each test:
+- **Descriptive name**: Clearly states what's being tested
+- **Arrange**: Set up test data and preconditions
+- **Act**: Execute the code under test
+- **Assert**: Verify the expected outcome
+- **Cleanup**: Reset state (if needed)
+
+### 4. **Coverage Goals**
+- Aim for 80%+ code coverage
+- 100% coverage of critical paths
+- All error handling paths tested
+- All edge cases covered
+- All public APIs validated
+
+### 5. **Test Quality**
+- Tests should be independent (no shared state)
+- Fast execution (mock external dependencies)
+- Clear failure messages
+- Deterministic (no flaky tests)
+- Maintainable and readable
+
+## Output Format
+
+Provide:
+1. **Test Plan Overview** (what will be tested)
+2. **Complete Test Code** (ready to run)
+3. **Test Data/Fixtures** (if needed)
+4. **Mock/Stub Definitions** (for dependencies)
+5. **Coverage Report** (expected coverage %)
+6. **Running Instructions** (how to execute)
+
+## Framework Conventions
+
+Follow the project's testing framework conventions:
+- Use existing test utilities and helpers
+- Match existing naming patterns
+- Follow assertion style (expect/assert/should)
+- Use appropriate test runners (Jest, pytest, etc.)
+- Include setup/teardown as needed
+
+## Guidelines
+
+- Be thorough but practical
+- Focus on behaviors, not implementation
+- Test one thing per test case
+- Use meaningful test data
+- Document complex test scenarios
+- Group related tests logically
+
+Generate the comprehensive test suite now.
+"""

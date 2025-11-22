@@ -1,0 +1,164 @@
+name = "api-spec"
+description = "Generate OpenAPI 3.1/Swagger specification from code or requirements"
+argument_hint = "<API endpoints or file to analyze>"
+
+[prompt]
+content = """
+You are generating a comprehensive OpenAPI 3.1 specification. Create a complete, standards-compliant API specification that serves as both documentation and contract.
+
+## API to Specify
+
+{{.Arguments}}
+
+## API Specification Process
+
+### 1. **Analyze the API**
+- Identify all endpoints and their purposes
+- Map out request/response structures
+- Understand authentication requirements
+- Note rate limiting and quotas
+- Identify error responses
+- Document any webhooks or callbacks
+
+### 2. **OpenAPI 3.1 Structure**
+
+Generate a complete specification with:
+
+**Info Section:**
+- API title and description
+- Version number
+- Contact information
+- License details
+- Terms of service (if applicable)
+
+**Servers:**
+- Production URL
+- Staging/development URLs
+- Base paths and variables
+
+**Authentication:**
+- Security schemes (OAuth2, API Key, JWT)
+- Security requirements per endpoint
+- Authorization flows
+- Token formats
+
+**Paths:**
+- All endpoints with HTTP methods
+- Path parameters
+- Query parameters
+- Request bodies
+- Response schemas
+- Response codes (200, 400, 401, 404, 500, etc.)
+
+**Components:**
+- Reusable schemas for data models
+- Security schemes
+- Parameters
+- Responses
+- Examples
+- Request bodies
+
+### 3. **Best Practices**
+
+Follow these standards:
+- Use semantic versioning (e.g., 1.0.0)
+- Provide detailed descriptions
+- Include realistic examples
+- Define all error responses
+- Use $ref for reusability
+- Follow RESTful conventions
+- Document all required vs optional fields
+- Specify formats (date-time, email, uuid, etc.)
+
+### 4. **Request/Response Documentation**
+
+For each endpoint:
+- **Summary**: Brief description (1 line)
+- **Description**: Detailed explanation
+- **Parameters**: All path, query, header parameters
+- **Request Body**: Schema with examples
+- **Responses**: All possible response codes
+- **Examples**: Realistic request/response pairs
+- **Tags**: Logical grouping
+
+### 5. **Data Models**
+
+Define schemas with:
+- All properties and their types
+- Required vs optional fields
+- Validation rules (min, max, pattern)
+- Format specifications
+- Default values
+- Enums for fixed sets
+- Nested objects and arrays
+- Examples of valid data
+
+### 6. **Error Handling**
+
+Document all error responses:
+- 400 Bad Request (validation errors)
+- 401 Unauthorized (authentication failure)
+- 403 Forbidden (authorization failure)
+- 404 Not Found (resource doesn't exist)
+- 409 Conflict (resource conflict)
+- 422 Unprocessable Entity (semantic errors)
+- 429 Too Many Requests (rate limit)
+- 500 Internal Server Error
+- 503 Service Unavailable
+
+### 7. **Advanced Features**
+
+Include if applicable:
+- **Webhooks**: Callback endpoints
+- **Callbacks**: Asynchronous responses
+- **Links**: Related operations
+- **Security**: Multiple auth schemes
+- **Discriminator**: Polymorphic types
+- **oneOf/anyOf/allOf**: Complex schemas
+
+## Output Format
+
+Provide:
+1. **Complete OpenAPI 3.1 YAML/JSON** (formatted and valid)
+2. **Schema Summary** (high-level overview)
+3. **Example Requests** (curl commands)
+4. **Example Responses** (JSON payloads)
+5. **Validation Notes** (any assumptions or clarifications)
+
+## Quality Checklist
+
+Ensure the spec:
+- [ ] Validates against OpenAPI 3.1 schema
+- [ ] All endpoints documented
+- [ ] All parameters described
+- [ ] All responses covered
+- [ ] Examples provided
+- [ ] Error responses defined
+- [ ] Authentication documented
+- [ ] Data models complete
+- [ ] Follows naming conventions
+- [ ] Ready for code generation
+
+## Guidelines
+
+- Be thorough and precise
+- Use consistent naming (camelCase or snake_case)
+- Include helpful descriptions
+- Provide realistic examples
+- Think from API consumer perspective
+- Document edge cases
+- Consider versioning strategy
+- Plan for evolution
+
+## Integration
+
+The generated spec can be used for:
+- Interactive documentation (Swagger UI, Redoc)
+- Client SDK generation
+- Server stub generation
+- API testing and validation
+- Contract testing
+- API gateway configuration
+
+Generate the complete OpenAPI 3.1 specification now.
+"""

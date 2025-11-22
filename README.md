@@ -435,9 +435,118 @@ See [`docs/OPENCODE_SETUP.md`](docs/OPENCODE_SETUP.md) for:
 
 ---
 
+## 🤖 Gemini CLI Integration
+
+**NEW:** This repository now supports [Google's Gemini CLI](https://ai.google.dev/gemini-api/docs/cli), Google's official terminal-based AI agent!
+
+### Why Gemini CLI?
+
+Use Gemini CLI alongside Claude Code and OpenCode to gain:
+- **Google's Models** - Access to Gemini 2.0 Flash (fast) and 1.5 Pro (deep reasoning)
+- **1M Token Context** - Perfect for analyzing large codebases
+- **Generous Free Tier** - Experiment without cost concerns
+- **Same MCP Servers** - All 10 MCP servers work with all three tools
+- **Shared Configuration** - Minimized redundancy across tools
+
+### Quick Setup
+
+```bash
+# 1. Install Gemini CLI
+npm install -g @google/generative-ai-cli
+
+# 2. Get API key from https://aistudio.google.com/app/apikey
+# 3. Add to .env
+export GEMINI_API_KEY="AIzaSy...your-key-here"
+
+# 4. Symlinks are already created (if you ran install-laptop.sh)
+ls -la ~/.gemini/
+# Should show:
+#   gemini-settings.json → /path/to/claude-config/config/gemini-settings.json
+#   agents/ → /path/to/claude-config/agents
+#   commands/repo-commands → /path/to/claude-config/commands/gemini
+
+# 5. Launch Gemini CLI
+cd ~/dev/tfwg/your-project
+gemini
+```
+
+### What's Included
+
+**MCP Servers (10):** All configured and ready (shared with Claude Code and OpenCode)
+- serena, headless-terminal, dataforseo, chrome-bridge, zen
+- brave-search, filesystem, memory, sqlite, promos
+
+**Agents (19):** Shared across all tools through symlinks
+
+**Commands (5):** TOML format for Gemini
+- /feature-plan, /debug-loop, /test-suite, /api-spec, /doc-generate
+
+### Multi-Tool Workflow
+
+**Recommended setup:**
+```
+Terminal 1: Claude Code (IDE integration)
+  $ claude
+
+Terminal 2: Gemini CLI (large codebase, deep reasoning)
+  $ gemini
+
+Terminal 3: OpenCode (multi-model, quick iterations)
+  $ opencode
+```
+
+**When to use each:**
+- **Claude Code:** Full IDE integration, complex edits, visual diffs, git ops
+- **Gemini CLI:** Large codebase understanding (1M context), deep reasoning, Google model strengths
+- **OpenCode:** Terminal tasks, multi-model experiments, server/SSH work
+
+### Shared Configuration Strategy
+
+To minimize redundancy, this repo uses:
+
+**Single Source of Truth for MCP Servers:**
+- `config/shared/mcp-servers.json` - Base MCP definitions
+- Each tool references these with tool-specific syntax
+
+**Shared Agents:**
+- `agents/` directory symlinked to all three tools
+
+**Shared Environment Variables:**
+- Same `.env` file for all secrets
+
+### Configuration
+
+Gemini CLI configuration lives in:
+- `config/gemini-settings.json` (version controlled)
+- Symlinked to `~/.gemini/gemini-settings.json`
+
+Same environment variables work for all tools:
+```bash
+export GEMINI_API_KEY="AIzaSy..."
+export ANTHROPIC_API_KEY="sk-ant-..."
+export BRAVE_API_KEY="..."
+export DATAFORSEO_USERNAME="..."
+export DATAFORSEO_PASSWORD="..."
+export OPENAI_API_KEY="..."
+```
+
+### Documentation
+
+See [`docs/GEMINI_SETUP.md`](docs/GEMINI_SETUP.md) for:
+- Complete installation guide
+- MCP server configuration details
+- Shared configuration architecture
+- TOML command format
+- Multi-tool workflows
+- Troubleshooting guide
+- Quick reference card
+
+---
+
 ## 📚 Documentation
 
 - [`docs/OPENCODE_SETUP.md`](docs/OPENCODE_SETUP.md) - OpenCode setup and usage guide
+- [`docs/GEMINI_SETUP.md`](docs/GEMINI_SETUP.md) - Gemini CLI setup and usage guide
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) - Complete inventory of copied resources
 - [`docs/SOP-NEW-PROJECT.md`](docs/SOP-NEW-PROJECT.md) - Setting up new projects (TODO)
 - [`docs/SOP-UPDATE-AGENT-OS.md`](docs/SOP-UPDATE-AGENT-OS.md) - Updating Agent OS (TODO)
